@@ -1,6 +1,7 @@
 package com.example.tracklifeevents.local_source
 
 import androidx.room.Database
+import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.tracklifeevents.local_source.converter.LocalDateConverter
 import com.example.tracklifeevents.local_source.dao.EventDao
@@ -12,6 +13,6 @@ import com.example.tracklifeevents.local_source.table.EventRow
     exportSchema = true
 )
 @TypeConverters(LocalDateConverter::class)
-abstract class AppDatabase {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun eventDao(): EventDao
 }
