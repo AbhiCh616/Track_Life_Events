@@ -7,8 +7,9 @@ import com.example.tracklifeevents.repo_interface.EventRepo
 import com.example.tracklifeevents.valid_model.ValidEvent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class EventRepoImpl(
+class EventRepoImpl @Inject constructor(
     private val eventDao: EventDao
 ) : EventRepo {
 
