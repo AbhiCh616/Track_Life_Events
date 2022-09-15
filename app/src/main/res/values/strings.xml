@@ -5,4 +5,5 @@
     <string name="add_event_btn_desc">Adds an Event to the list</string>
     <string name="add_event">Add Event</string>
     <string name="event_name">Event Name</string>
+    <string name="event_image">Event Image</string>
 </resources>

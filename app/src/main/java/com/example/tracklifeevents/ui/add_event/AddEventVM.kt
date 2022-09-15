@@ -6,6 +6,7 @@ import com.example.tracklifeevents.model.Event
 import com.example.tracklifeevents.use_case.AddEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,8 +20,8 @@ class AddEventVM @Inject constructor(
     fun onSaveClick() = viewModelScope.launch {
         val event = Event(
             name = eventName,
-            date = null,
-            imageUri = eventImageUri
+            date = LocalDate.now(),
+            imageUri = "eventImageUri"
         )
         addEvent(event = event)
     }
