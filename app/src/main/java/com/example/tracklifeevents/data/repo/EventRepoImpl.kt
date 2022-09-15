@@ -13,7 +13,7 @@ class EventRepoImpl @Inject constructor(
     private val eventDao: EventDao
 ) : EventRepo {
 
-    override fun getAll(): Flow<List<ValidEvent>> = eventDao.getAll().map { list ->
+    override fun observeAll(): Flow<List<ValidEvent>> = eventDao.observeAll().map { list ->
         list.toValidEventList()
     }
 

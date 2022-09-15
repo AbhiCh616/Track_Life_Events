@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface EventDao {
 
     @Query("SELECT * FROM event")
-    fun getAll(): Flow<List<EventRow>>
+    fun observeAll(): Flow<List<EventRow>>
 
     @Delete
     suspend fun delete(eventRow: EventRow)
