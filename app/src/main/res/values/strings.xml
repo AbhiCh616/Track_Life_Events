@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Track Life Events</string>
     <string name="add_event_fab_desc">Add Event</string>
+    <string name="save">Save</string>
+    <string name="add_event_btn_desc">Adds an Event to the list</string>
+    <string name="add_event">Add Event</string>
+    <string name="event_name">Event Name</string>
 </resources>
