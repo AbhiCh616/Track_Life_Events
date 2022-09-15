@@ -2,10 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/videoListFragment">
-
+    app:startDestination="@id/eventListFragment">
     <fragment
-        android:id="@+id/videoListFragment"
-        android:name="com.example.tracklifeevents.ui.eventslist.VideoListFragment"
-        android:label="VideoListFragment" />
+        android:id="@+id/eventListFragment"
+        android:name="com.example.tracklifeevents.ui.events_list.EventListFragment"
+        android:label="EventListFragment" >
+        <action
+            android:id="@+id/action_eventList_to_addEvent"
+            app:destination="@id/addEventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEventFragment"
+        android:name="com.example.tracklifeevents.ui.add_event.AddEventFragment"
+        android:label="AddEventFragment" />
 </navigation>

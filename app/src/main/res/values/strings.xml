@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Track Life Events</string>
+    <string name="add_event_fab_desc">Add Event</string>
 </resources>
