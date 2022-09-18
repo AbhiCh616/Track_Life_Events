@@ -13,7 +13,7 @@ data class EventItemData(
 
 fun ValidEvent.toEventItemData() = EventItemData(
     name = this.name,
-    daysLeft = ChronoUnit.DAYS.between(this.date, LocalDate.now()).toInt().toString(),
+    daysLeft = ChronoUnit.DAYS.between(LocalDate.now(), this.date).toInt().toString(),
     imageUri = Uri.parse(imageUri)
 )
 
