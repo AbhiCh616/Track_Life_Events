@@ -36,7 +36,8 @@ class AddEventVM @Inject constructor(
     }
 
     fun setDate(year: Int, month: Int, day: Int) {
-        Log.d("A", "$day ")
+        Log.d("DATE", month.toString())
+        Log.d("DATE", LocalDate.of(year, month, day).toString())
         eventDate.update { LocalDate.of(year, month, day) }
     }
 

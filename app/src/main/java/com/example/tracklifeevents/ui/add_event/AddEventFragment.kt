@@ -2,6 +2,7 @@ package com.example.tracklifeevents.ui.add_event
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,20 +74,22 @@ class AddEventFragment : Fragment() {
         binding.eventDateLayout.let { layout ->
             layout.setEndIconOnClickListener {
                 val today = LocalDate.now()
+                Log.d("DATE", today.toString())
                 val year = viewModel.eventDate.value?.year ?: today.year
                 val month = viewModel.eventDate.value?.monthValue ?: today.monthValue
                 val day = viewModel.eventDate.value?.dayOfMonth ?: today.dayOfMonth
+                Log.d("DATE", month.toString())
 
                 val onDateSetListener =
                     DatePickerDialog.OnDateSetListener { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
                         viewModel.setDate(
                             year = selectedYear,
-                            month = selectedMonth,
+                            month = selectedMonth + 1,
                             day = selectedDay
                         )
                     }
                 val datePickerDialog =
-                    DatePickerDialog(requireContext(), onDateSetListener, year, month, day)
+                    DatePickerDialog(requireContext(), onDateSetListener, year, month - 1, day)
                 datePickerDialog.show()
             }
         }
