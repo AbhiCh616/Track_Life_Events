@@ -1,5 +1,6 @@
 package com.example.tracklifeevents.ui.add_event
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,13 +23,14 @@ class AddEventVM @Inject constructor(
     var eventDateText = eventDate.map {
         it?.toString() ?: ""
     }
-    var eventImageUri = ""
+    private val _eventImageUri = MutableStateFlow<String?>(null)
+    val eventImageUri = _eventImageUri.map { it }
 
     fun onSaveClick() = viewModelScope.launch {
         val event = Event(
             name = eventName,
             date = eventDate.value,
-            imageUri = "eventImageUri"
+            imageUri = _eventImageUri.value
         )
         addEvent(event = event)
     }
@@ -36,5 +38,9 @@ class AddEventVM @Inject constructor(
     fun setDate(year: Int, month: Int, day: Int) {
         Log.d("A", "$day ")
         eventDate.update { LocalDate.of(year, month, day) }
+    }
+
+    fun setImage(uri: Uri) {
+        _eventImageUri.update { uri.toString() }
     }
 }

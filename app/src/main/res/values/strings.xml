@@ -8,4 +8,6 @@
     <string name="event_image">Event Image</string>
     <string name="days_left_d">%s days left</string>
     <string name="event_date">Event Date</string>
+    <string name="select_image">Select Image</string>
+    <string name="event_image_desc">Event Image Selected</string>
 </resources>

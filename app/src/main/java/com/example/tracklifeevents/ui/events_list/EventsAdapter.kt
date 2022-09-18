@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.tracklifeevents.R
 import com.example.tracklifeevents.databinding.EventItemBinding
 
@@ -25,6 +26,7 @@ class EventsAdapter(
             eventName.text = event.name
             eventDaysLeft.text =
                 holder.itemView.context.getString(R.string.days_left_d).format(event.daysLeft)
+            eventImage.load(event.imageUri)
         }
     }
 
