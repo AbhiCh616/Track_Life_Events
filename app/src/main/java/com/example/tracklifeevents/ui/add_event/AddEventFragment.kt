@@ -18,9 +18,11 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.tracklifeevents.R
 import com.example.tracklifeevents.databinding.AddEventBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.modernstorage.photopicker.PhotoPicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.lang.IllegalStateException
 import java.time.LocalDate
 
 @androidx.annotation.OptIn(androidx.core.os.BuildCompat.PrereleaseSdkCheck::class)
@@ -37,7 +39,9 @@ class AddEventFragment : Fragment() {
     ): View {
         binding = AddEventBinding.inflate(inflater, container, false)
         photoPicker = registerForActivityResult(PhotoPicker()) { uris ->
-            viewModel.setImage(uris[0])
+            if(!uris.isNullOrEmpty()) {
+                viewModel.setImage(uris[0])
+            }
         }
         return binding.root
     }
@@ -64,7 +68,6 @@ class AddEventFragment : Fragment() {
             when (menuItem.itemId) {
                 R.id.save_btn -> {
                     viewModel.onSaveClick()
-                    findNavController().popBackStack()
                     true
                 }
                 else -> false
@@ -121,8 +124,37 @@ class AddEventFragment : Fragment() {
             }
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.goBack.collect { shouldGoBack ->
+                    if(shouldGoBack) {
+                        findNavController().popBackStack()
+                    }
+                }
+            }
+        }
+
         binding.eventDateTextField.let { textField ->
             textField.isEnabled = false
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.snackbar.collect { snackbarEvent ->
+                    if(snackbarEvent != null) {
+                        val message = when(snackbarEvent) {
+                            AddEventSnackbars.EMPTY_NAME -> R.string.empty_name_dialog
+                            AddEventSnackbars.EMPTY_IMAGE -> R.string.empty_image_dialog
+                            AddEventSnackbars.EMPTY_DATE -> R.string.empty_date_dialog
+                            else -> throw IllegalStateException()
+                        }
+                        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+                            .show()
+                        viewModel.dialogShown()
+                    }
+                }
+            }
+        }
+
     }
 }

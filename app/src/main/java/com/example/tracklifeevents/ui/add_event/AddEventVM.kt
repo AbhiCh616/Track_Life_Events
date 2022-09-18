@@ -25,14 +25,31 @@ class AddEventVM @Inject constructor(
     }
     private val _eventImageUri = MutableStateFlow<String?>(null)
     val eventImageUri = _eventImageUri.map { it }
+    private val _snackbar = MutableStateFlow<AddEventSnackbars?>(null)
+    val snackbar = _snackbar.map { it }
+    private val _goBack = MutableStateFlow(false)
+    val goBack = _goBack.map { it }
 
     fun onSaveClick() = viewModelScope.launch {
+        if (eventName.isEmpty()) {
+            _snackbar.update { AddEventSnackbars.EMPTY_NAME }
+            return@launch
+        }
+        if (eventDate.value == null) {
+            _snackbar.update { AddEventSnackbars.EMPTY_DATE }
+            return@launch
+        }
+        if (_eventImageUri.value == null) {
+            _snackbar.update { AddEventSnackbars.EMPTY_IMAGE }
+            return@launch
+        }
         val event = Event(
             name = eventName,
             date = eventDate.value,
             imageUri = _eventImageUri.value
         )
         addEvent(event = event)
+        _goBack.update { true }
     }
 
     fun setDate(year: Int, month: Int, day: Int) {
@@ -41,7 +58,11 @@ class AddEventVM @Inject constructor(
         eventDate.update { LocalDate.of(year, month, day) }
     }
 
-    fun setImage(uri: Uri) {
+    fun setImage(uri: Uri?) {
         _eventImageUri.update { uri.toString() }
+    }
+
+    fun dialogShown() {
+        _snackbar.update { null }
     }
 }

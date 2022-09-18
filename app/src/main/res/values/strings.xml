@@ -10,4 +10,7 @@
     <string name="event_date">Event Date</string>
     <string name="select_image">Select Image</string>
     <string name="event_image_desc">Event Image Selected</string>
+    <string name="empty_name_dialog">Please enter the name of the event</string>
+    <string name="empty_image_dialog">Please select an image for your event</string>
+    <string name="empty_date_dialog">Please select a date for your event</string>
 </resources>
